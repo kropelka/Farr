@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<div class="modal fade" id="my-modal"
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header>
+                <h4 class="modal-title>Szczegóły</h4>
+            </div>
+        <div class="modal-body">
+
+        </div>
+            <div class="modal-footer">
+                fsjdfjds
+            </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <th>
+                Firma
+            </th>
+            <th>
+                Właściciel
+            </th>
+            <th>
+                Adres
+            </th>
+            <th>
+                Strona WWW
+            </th>
+
+        </thead>
+        {% for firma in firmy %}
+        <tr data-url="{% url 'firma-detail' firma.id %}">
+            <td>
+                {{ firma.nazwa }}
+            </td>
+            <td>
+                {{ firma.wlasciciel }}
+            </td>
+            <td>
+                {{ firma.adres }}
+            </td>
+            <td>
+                {{ firma.www }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if firmy.has_previous %}
+                <a href="?page={{ firmy.previous_page_number }}"> &lt; </a>
+            {% endif %}
+
+            <span class="current">
+                Strona {{ firmy.number }} z {{ firmy.num_pages }}
+            </span>
+
+            {% if firmy.has_next %}
+                <a href="?page={{ firmy.next_page_number }}"> &gt; </a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.table > tbody > tr').click(function() {
+            var url = $(this).attr("data-url");
+            $("#my-modal .modal-body").load(url, function() {
+                        $("#my-modal").modal("show")
+            });
+        })
+    })
+
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>
